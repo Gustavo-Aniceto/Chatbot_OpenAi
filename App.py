@@ -18,7 +18,7 @@ frameCima.grid(row=0, column=0, columnspan=2, sticky=NSEW)
 
 frameMeio = Frame(janela, width=500, height=300, bg=cor_fundo_1, relief="solid")
 frameMeio.grid(row=1, column=0, sticky=NSEW)
-img_app = Image.open('imagem/bot.png')
+img_app = Image.open('C:/Users/guuha/PycharmProjects/Chatbot_OpenAi/bot.png')
 img_app = img_app.resize((70, 70))
 img_app = ImageTk.PhotoImage(img_app)
 app_ = Label(frameCima, height=70, image=img_app, compound=LEFT, anchor='center', bg=cor_fundo_1)
@@ -57,9 +57,10 @@ def adicionar_mensagem(mensagem, remetente):
 
 # ... (outros componentes)
 
-img_app = Image.open('bot.png')
+button_imagem = Image.open('C:/Users/guuha/PycharmProjects/Chatbot_OpenAi/enviar.png')
 button_imagem = button_imagem.resize((30, 30))
 button_imagem = ImageTk.PhotoImage(button_imagem)
+
 button_enviar = Button(frameBaixo, image=button_imagem, command=enviar_mensagem, bg=cor_fundo_1, relief=FLAT)
 button_enviar.grid(row=0, column=1, padx=5, pady=5)
 
