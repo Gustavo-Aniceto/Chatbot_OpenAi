@@ -66,7 +66,5 @@ button_enviar.grid(row=0, column=1, padx=5, pady=5)
 
 # Initialize the chat with some messages
 adicionar_mensagem("Olá! Como posso ajudar?", "Bot")
-adicionar_mensagem("Estou com um problema no meu código.", "Usuário")
-adicionar_mensagem("Claro, vou tentar ajudar. Qual é o problema?", "Bot")
 
 janela.mainloop()
