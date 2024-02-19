@@ -1,8 +1,8 @@
 from tkinter import *
-from tkinter import ttk, messagebox
-from tkscrolledframe import ScrolledFrame
-from PIL import Image, ImageTk
+
 import openai
+from PIL import Image, ImageTk
+from tkscrolledframe import ScrolledFrame
 
 cor_fundo_1 = "#FFFFFF"
 cor_fundo_2 = "#E1F2FD"
@@ -44,18 +44,18 @@ frameBaixo.grid(row=2, column=0, sticky=NSEW)
 entry_mensagem = Entry(frameBaixo, font=('Arial 12'), width=48, relief="solid")
 entry_mensagem.grid(row=0, column=0, padx=10, pady=5)
 
-def enviar_mensagem():
+def enviar_mensagem(entry_mensagem, text_chat):
     mensagem = entry_mensagem.get()
     # Chame a API da OpenAI para obter a resposta
     resposta = openai.Completion.create(
-        model="text-davinci-002",  # Anteriormente era 'engine'
+        model="text-davinci-002",
         prompt=mensagem,
         max_tokens=50
     )
-    resposta_texto = resposta.choices[0].text.strip()
-    exibir_resposta(resposta_texto)
+    resposta_texto = resposta.choices[0].text.strip()  # Acessando a resposta corretamente
+    exibir_resposta(text_chat, resposta_texto)
 
-def exibir_resposta(resposta):
+def exibir_resposta(text_chat, resposta):
     text_chat.config(state=NORMAL)
     text_chat.insert(END, "Bot: " + resposta + "\n")
     text_chat.config(state=DISABLED)
