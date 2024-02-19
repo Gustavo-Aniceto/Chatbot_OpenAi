@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 from tkscrolledframe import ScrolledFrame
 from PIL import Image, ImageTk
+import openai
 
 cor_fundo_1 = "#FFFFFF"
 cor_fundo_2 = "#E1F2FD"
@@ -44,16 +45,20 @@ entry_mensagem = Entry(frameBaixo, font=('Arial 12'), width=48, relief="solid")
 entry_mensagem.grid(row=0, column=0, padx=10, pady=5)
 
 def enviar_mensagem():
-    mensagem_usuario = entry_mensagem.get()
-    if mensagem_usuario:
-        adicionar_mensagem(mensagem_usuario, "Usuário")
-        entry_mensagem.delete(0, END)
+    mensagem = entry_mensagem.get()
+    # Chame a API da OpenAI para obter a resposta
+    resposta = openai.Completion.create(
+        model="text-davinci-002",  # Anteriormente era 'engine'
+        prompt=mensagem,
+        max_tokens=50
+    )
+    resposta_texto = resposta.choices[0].text.strip()
+    exibir_resposta(resposta_texto)
 
-def adicionar_mensagem(mensagem, remetente):
+def exibir_resposta(resposta):
     text_chat.config(state=NORMAL)
-    text_chat.insert(END, f"{remetente}: {mensagem}\n\n")
+    text_chat.insert(END, "Bot: " + resposta + "\n")
     text_chat.config(state=DISABLED)
-    text_chat.yview(END)
 
 # ... (outros componentes)
 
@@ -64,7 +69,6 @@ button_imagem = ImageTk.PhotoImage(button_imagem)
 button_enviar = Button(frameBaixo, image=button_imagem, command=enviar_mensagem, bg=cor_fundo_1, relief=FLAT)
 button_enviar.grid(row=0, column=1, padx=5, pady=5)
 
-# Initialize the chat with some messages
-adicionar_mensagem("Olá! Como posso ajudar?", "Bot")
+
 
 janela.mainloop()
